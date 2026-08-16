@@ -156,11 +156,11 @@ function goToPoint(index) {
     currentPointIndex = index;
     const point = tourPoints[index];
 
-    // Mover el mapa de forma suave (animada)
-    // Usamos flyTo para un efecto cinematográfico ideal para el video
-    map.flyTo([point.lat, point.lng], 14, {
+    // Mover el mapa al nuevo punto
+    // Usamos setView en lugar de flyTo para evitar tirones (stuttering) al cargar los mapas
+    map.setView([point.lat, point.lng], 14, {
         animate: true,
-        duration: 2.5 // Duración en segundos de la animación
+        duration: 1.5 // Animación más corta y directa
     });
 
     // Actualizar el panel lateral
