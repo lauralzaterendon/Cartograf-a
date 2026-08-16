@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bojayá: Cartografía de la memoria y la resistencia</title>
+    <!-- Fuentes de Google: Roboto para un estilo limpio y legible -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Leaflet CSS para el mapa -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-container">
+            <div class="header-text">
+                <h1>Bojayá: Cartografía de la memoria y la resistencia</h1>
+                <p class="subtitle">Un recorrido por el territorio, la memoria y los procesos de reparación del caso Bojayá (2002), en el marco del conflicto armado colombiano.</p>
+            </div>
+            <div class="institution-placeholder" style="text-align: right; border-style: solid;">
+                <span style="display: block; font-weight: 500; font-size: 0.95rem;">Desarrollo humano y formación sociopolítica</span>
+                <span style="display: block; margin-top: 2px;">Laura Valentina Alzate Rendón</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="app-main">
+        <div class="map-section">
+            <div id="map"></div>
+            
+            <!-- Controles del recorrido superpuestos al mapa en la parte inferior -->
+            <div class="tour-controls">
+                <div class="progress-container">
+                    <div id="progress-bar" class="progress-bar"></div>
+                </div>
+                <div class="tour-actions">
+                    <button id="btn-prev" class="tour-btn" disabled title="Punto anterior (Flecha Izquierda)">
+                        <span class="arrow">&larr;</span> Anterior
+                    </button>
+                    <div class="tour-info">
+                        <span id="tour-counter" class="tour-counter">Inicio del recorrido</span>
+                        <span class="keyboard-hint">Atajos: &larr; &rarr; | 'N' para notas</span>
+                    </div>
+                    <button id="btn-next" class="tour-btn" title="Siguiente punto (Flecha Derecha)">
+                        Siguiente <span class="arrow">&rarr;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <aside id="info-panel" class="info-panel">
+            <div id="panel-content" class="panel-content">
+                <div class="empty-state">
+                    <svg viewBox="0 0 24 24" width="48" height="48" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="empty-icon"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+                    <p>Haz clic en "Siguiente" para iniciar el recorrido guiado, o selecciona un punto en el mapa.</p>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Panel oculto de notas del presentador -->
+    <div id="presenter-notes" class="presenter-notes hidden">
+        <div class="notes-header">
+            <h3>Notas del Presentador</h3>
+            <span class="close-hint">(Presiona 'N' para ocultar)</span>
+        </div>
+        <div id="notes-content" class="notes-body">
+            <p class="notes-placeholder">No hay notas para la vista actual.</p>
+        </div>
+    </div>
+
+    <!-- Plantilla para el contenido del panel (se clona y llena desde JS) -->
+    <template id="panel-template">
+        <div class="point-details">
+            <span class="point-category"></span>
+            <h2 class="point-title"></h2>
+            
+            <div class="image-container">
+                <div class="image-placeholder">
+                    <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                    <span>Fotografía no disponible.</span>
+                </div>
+                <img src="" alt="Fotografía del lugar" class="point-image hidden" style="width: 100%; height: auto; border-radius: 8px;">
+            </div>
+            
+            <div class="point-description"></div>
+            
+            <div class="source-container">
+                <label class="source-label">Fuente / Referencia:</label>
+                <a href="#" target="_blank" class="point-source-link" style="display: none; color: var(--color-primary); text-decoration: underline; margin-top: 0.5rem; font-size: 0.9rem;">Ver fuente de la información</a>
+            </div>
+        </div>
+    </template>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="script.js"></script>
+</body>
+</html>

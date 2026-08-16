@@ -1,0 +1,388 @@
+:root {
+    /* Paleta sobria y respetuosa: tonos tierra, verdes apagados y neutros */
+    --primary-color: #3b4d3d; /* Verde oscuro, selva sobrio */
+    --primary-light: #5a6e5b;
+    --accent-color: #8c7355; /* Marrón tierra */
+    --bg-color: #f7f6f2; /* Fondo claro, cálido y poco saturado */
+    --panel-bg: #ffffff;
+    --text-main: #2d312e;
+    --text-muted: #5e6660;
+    --border-color: #dcdcd6;
+    
+    /* Categorías */
+    --cat-historico: #8c7355;
+    --cat-comunitario: #4a7566;
+    --cat-politica: #596575;
+    --cat-institucional: #755b5b;
+
+    /* Sombras y radios */
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 8px rgba(0,0,0,0.1);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.15);
+    --radius-md: 8px;
+    --radius-lg: 12px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* --- Header --- */
+.app-header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1.25rem 2rem;
+    box-shadow: var(--shadow-sm);
+    z-index: 10;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.header-text h1 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    letter-spacing: 0.5px;
+}
+
+.subtitle {
+    font-size: 0.95rem;
+    color: #d1d8d1;
+    font-weight: 300;
+    max-width: 800px;
+}
+
+.institution-placeholder {
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+    border: 1px dashed rgba(255,255,255,0.4);
+    border-radius: var(--radius-md);
+    background-color: rgba(0,0,0,0.1);
+}
+
+/* --- Main Layout --- */
+.app-main {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
+
+/* --- Map Section --- */
+.map-section {
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* --- Tour Controls --- */
+.tour-controls {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+    width: 90%;
+    max-width: 600px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.progress-container {
+    height: 6px;
+    background-color: var(--border-color);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: var(--primary-light);
+    width: 0%;
+    transition: width 0.4s ease-in-out;
+}
+
+.tour-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tour-btn {
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tour-btn:hover:not(:disabled) {
+    background-color: var(--primary-light);
+    color: white;
+    border-color: var(--primary-light);
+}
+
+.tour-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.tour-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tour-counter {
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.keyboard-hint {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+/* --- Info Panel --- */
+.info-panel {
+    width: 420px;
+    background-color: var(--panel-bg);
+    border-left: 1px solid var(--border-color);
+    box-shadow: -2px 0 10px rgba(0,0,0,0.05);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.panel-content {
+    padding: 2rem;
+}
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+    color: var(--text-muted);
+    padding-top: 4rem;
+}
+
+.empty-icon {
+    margin-bottom: 1rem;
+    color: var(--border-color);
+}
+
+.point-category {
+    display: inline-block;
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: white;
+    margin-bottom: 1rem;
+    background-color: var(--primary-light); /* fallback */
+}
+
+/* Category colors */
+.cat-historico { background-color: var(--cat-historico); }
+.cat-comunitario { background-color: var(--cat-comunitario); }
+.cat-politica { background-color: var(--cat-politica); }
+.cat-institucional { background-color: var(--cat-institucional); }
+
+.point-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+}
+
+.image-container {
+    width: 100%;
+    margin-bottom: 1.5rem;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.image-placeholder {
+    background-color: #eae9e4;
+    border: 2px dashed #cccbc6;
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #888681;
+    font-size: 0.85rem;
+    min-height: 180px;
+}
+
+.image-placeholder svg {
+    margin-bottom: 0.75rem;
+}
+
+.point-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.point-description {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text-main);
+    margin-bottom: 2rem;
+    text-align: justify;
+}
+
+.source-container {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.source-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.source-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-family: inherit;
+    font-size: 0.9rem;
+    resize: vertical;
+    background-color: #fafafa;
+}
+
+.source-input:focus {
+    outline: none;
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 2px rgba(90, 110, 91, 0.2);
+}
+
+/* --- Presenter Notes --- */
+.presenter-notes {
+    position: fixed;
+    top: 90px;
+    right: 440px; /* Al lado del panel de info */
+    width: 320px;
+    background-color: #fffde7; /* Amarillo muy suave tipo post-it */
+    border: 1px solid #e6dbb3;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    z-index: 2000;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.presenter-notes.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+}
+
+.notes-header {
+    background-color: #f0e6c3;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e6dbb3;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.notes-header h3 {
+    font-size: 0.95rem;
+    color: #665c36;
+    margin: 0;
+}
+
+.close-hint {
+    font-size: 0.75rem;
+    color: #8c8155;
+}
+
+.notes-body {
+    padding: 1rem;
+    font-size: 0.95rem;
+    color: #4a4224;
+    line-height: 1.5;
+}
+
+/* --- Responsive --- */
+@media (max-width: 1024px) {
+    .app-main {
+        flex-direction: column;
+    }
+    
+    .info-panel {
+        width: 100%;
+        height: 40vh;
+        border-left: none;
+        border-top: 1px solid var(--border-color);
+    }
+    
+    .tour-controls {
+        bottom: 10px;
+    }
+
+    .presenter-notes {
+        right: 20px;
+        bottom: 42vh;
+        top: auto;
+    }
+}
+
+/* Utils */
+.hidden {
+    display: none !important;
+}
